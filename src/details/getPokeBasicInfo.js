@@ -1,30 +1,18 @@
 import axios from "axios";
 import cheerio from "cheerio";
-import {DataSource} from "../baseConfig.js";
+import {DataSource} from "../basicConfig.js";
 
-const url = DataSource.pokeMainURL;
-const urlHead = DataSource.URLHead;
 
-class PokeURL {
-
-    _setInfo(id, name, url) {
-        this["id"] = id;
-        this["name"] = name;
-        this["url"] = url;
+export class PokeBasicInfo {
+    constructor(id, name, url) {
+        this.id = id;
+        this.name = name;
+        this.url = url;
     }
 
-    /*
-    * 根据语言获取宝可梦的名字和URL
-    * @returns: {id, name, url}
-    * @example: poke.getInfo().name
-    */
-    getInfo() {
-        return {
-            "id": this.id,
-            "name": this.name,
-            "url": this.url
-        }
-    }
+    id = null;      /*全国图鉴编号*/
+    name = null;    /*中文名称*/
+    url = null;     /*宝可梦详情页URL*/
 }
 
 /*
@@ -32,10 +20,13 @@ class PokeURL {
 * @returns: [PokeURL1, PokeURL2, ...]
 * @example: getPokeBasicInfo().then(pokeURLs => console.log(pokeURLs[0].getInfo()));
  */
-export default function getPokeBasicInfo() {
-    const pokeURLArray = [];
+export function getPokeBasicInfo() {
+    const pokeBasicInfoArray = [];
 
-    return axios.get(url.toString())
+    const url = DataSource.pokeMainURL;
+    const urlHead = DataSource.URLHead;
+
+    return axios.get(url)
         .then(htmlPage => {
             /*
              结构:
@@ -46,7 +37,7 @@ export default function getPokeBasicInfo() {
                 <td><a href="/wiki/Porygon" class="mw-redirect" title="Porygon">Porygon</a></td>
               </tr>
 
-              处理为:
+             处理为:
               137
               多边兽 https://wiki.52poke.com/wiki/%E5%A4%9A%E8%BE%B9%E5%85%BD
               // ポリゴン https://wiki.52poke.com/wiki/%E3%83%9D%E3%83%AA%E3%82%B4%E3%83%B3
@@ -66,10 +57,8 @@ export default function getPokeBasicInfo() {
                 // let jpName = $(tds[3]).text().trim();
                 // let jpURL = urlHead + $(tds[3]).find("a").attr("href").trim();
 
-                let poke = new PokeURL();
-                poke._setInfo(id, zhName, zhURL);
-                pokeURLArray[id] = poke;
+                pokeBasicInfoArray[id] = new PokeBasicInfo(id, zhName, zhURL);
             })
-        })
-        .then(() => pokeURLArray);
+            return pokeBasicInfoArray;
+        });
 }

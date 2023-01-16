@@ -1,4 +1,4 @@
-import getPokeBasicInfo from "./details/getPokeBasicInfo.js";
+import {getPokeBasicInfo, PokeBasicInfo} from "./details/getPokeBasicInfo.js";
 import axios from "axios";
 import fs from "fs";
 
@@ -8,9 +8,7 @@ function getPokeInfo() {
 
 }
 
-class Pokemon {
-    id = null;      /*全国图鉴编号*/
-    name = null;    /*中文名称*/
+class PokeInfo extends PokeBasicInfo {
     skills = [];    /*技能列表*/
     types = [];     /*属性列表*/
 }
