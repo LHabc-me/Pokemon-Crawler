@@ -6,7 +6,6 @@ function saveInTemp(data) {
     fs.writeFileSync("../data/temp.txt", data.toString(), {flag: "w+"});
 }
 
-
 let url = new URL("https://wiki.52poke.com/wiki/宝可梦列表（按全国图鉴编号）/简单版");
 let urlHead = "https://wiki.52poke.com";
 
