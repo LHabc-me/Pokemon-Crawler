@@ -1,7 +1,7 @@
-import getPokeURL from "../src/getPokeURL.js";
+import getPokeURL from "../src/details/getPokeURL.js";
 import fs from "fs";
 
 (async function () {
-    let urls = await getPokeURL();
-    fs.writeFileSync("../temp/getPokeURL.json", urls.toString(), {flag: "w+"});
+    let arr = await getPokeURL();
+    fs.writeFileSync("../temp/getPokeURL.json", JSON.stringify(arr[1008], null, 4), {flag: "w+"});
 })();

@@ -7,27 +7,35 @@ const urlHead = "https://wiki.52poke.com";
 
 class PokeURL {
 
-    setInfo(lang, name, url) {
+    _setInfo(lang, name, url) {
         this[`${lang}`] = {
             "name": `${name}`,
             "url": `${url}`,
         }
     }
 
+    /*
+    * @brief: get the url of the pokemon
+    * @param: lang: the language which you want to get
+    * @return: {name, url}
+    * @example: getPokeURL("zh")
+    */
     getInfo(lang) {
         return this[`${lang}`];
     }
 }
 
+/*
+* @brief: get the url of all pokemon
+* @param: empty
+* @return: [PokeURL1, PokeURL2, ...] index is the id of the pokemon
+* @example: getPokeURL().then(pokeURLs => console.log(pokeURLs[0].getInfo("zh")));
+ */
 export default function getPokeURL() {
     const pokeURLArray = [];
 
     return axios.get(url.toString())
-        .then(res => {
-            let $ = cheerio.load(res.data.toString());
-
-            let td = $("tr:has(td:contains('#'))");
-
+        .then(htmlPage => {
             /*
              结构:
               <tr>
@@ -43,6 +51,8 @@ export default function getPokeURL() {
               ポリゴン https://wiki.52poke.com/wiki/%E3%83%9D%E3%83%AA%E3%82%B4%E3%83%B3
               Porygon https://wiki.52poke.com/wiki/Porygon"
             */
+            let $ = cheerio.load(htmlPage.data);
+            let td = $("tr:has(td:contains('#'))");
 
             td.map((index, elem) => {
                 let tds = $(elem).find("td");
@@ -56,11 +66,11 @@ export default function getPokeURL() {
                 let jpLink = urlHead + $(tds[3]).find("a").attr("href").trim();
 
                 let poke = new PokeURL();
-                poke.setInfo("zh", zhName, zhLink);
-                poke.setInfo("en", enName, enLink);
-                poke.setInfo("jp", jpName, jpLink);
-                pokeURLArray.push(poke);
+                poke._setInfo("zh", zhName, zhLink);
+                poke._setInfo("en", enName, enLink);
+                poke._setInfo("jp", jpName, jpLink);
+                pokeURLArray[index + 1] = (poke);
             })
         })
-        .then(() => JSON.stringify(pokeURLArray, null, 4));
+        .then(() => pokeURLArray);
 }
