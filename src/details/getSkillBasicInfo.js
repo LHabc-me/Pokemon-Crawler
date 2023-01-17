@@ -2,7 +2,7 @@ import {DataSource} from "../basicConfig.js";
 import axios from "axios";
 import cheerio from "cheerio";
 
-class SkillBasicInfo {
+export class SkillBasicInfo {
     generation = null;  /*第n世代出现*/
     id = null;          /*总技能编号*/
     name = null;        /*中文名称*/
@@ -15,7 +15,7 @@ class SkillBasicInfo {
     url = null;         /*技能详情页链接*/
 }
 
-export function getSkillBasicInfo() {
+export async function getSkillBasicInfo() {
     const SkillBasicInfoArray = [];
 
     const url = DataSource.skillMainURL;
@@ -90,7 +90,6 @@ export function getSkillBasicInfo() {
                         skillBasicInfo.url = urlHead + td.eq(1).find("a").attr("href").trim();
 
                         SkillBasicInfoArray.push(skillBasicInfo);
-
                     }
                 }
             );

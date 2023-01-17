@@ -20,7 +20,7 @@ export class PokeBasicInfo {
 * @returns: [PokeURL1, PokeURL2, ...]
 * @example: getPokeBasicInfo().then(pokeURLs => console.log(pokeURLs[0].getInfo()));
  */
-export function getPokeBasicInfo() {
+export async function getPokeBasicInfo() {
     const pokeBasicInfoArray = [];
 
     const url = DataSource.pokeMainURL;
