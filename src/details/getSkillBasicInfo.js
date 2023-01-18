@@ -1,5 +1,4 @@
-import {DataSource} from "../basicConfig.js";
-import axios from "axios";
+import {DataSource, getPageByURL} from "../basicConfig.js";
 import cheerio from "cheerio";
 
 export class SkillBasicInfo {
@@ -21,7 +20,7 @@ export async function getSkillBasicInfo() {
     const url = DataSource.skillMainURL;
     const urlHead = DataSource.URLHead;
 
-    return axios.get(url)
+    return getPageByURL(url)
         .then(htmlPage => {
             let $ = cheerio.load(htmlPage.data);
 

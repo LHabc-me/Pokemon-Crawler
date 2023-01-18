@@ -1,6 +1,5 @@
-import axios from "axios";
 import cheerio from "cheerio";
-import {DataSource} from "../basicConfig.js";
+import {DataSource, getPageByURL} from "../basicConfig.js";
 
 
 export class PokeBasicInfo {
@@ -16,7 +15,7 @@ export class PokeBasicInfo {
 }
 
 /*
-* 获取宝可梦基本数据(包括编号、名称和URL)，返回的数组下标为宝可梦的编号
+* 获取宝可梦基本数据(包括编号、名称和URL)，返回的数组下标为宝可梦的编号-1
 * @returns: [PokeURL1, PokeURL2, ...]
 * @example: getPokeBasicInfo().then(pokeURLs => console.log(pokeURLs[0].getInfo()));
  */
@@ -26,7 +25,7 @@ export async function getPokeBasicInfo() {
     const url = DataSource.pokeMainURL;
     const urlHead = DataSource.URLHead;
 
-    return axios.get(url)
+    return getPageByURL(url)
         .then(htmlPage => {
             /*
              结构:
@@ -57,7 +56,7 @@ export async function getPokeBasicInfo() {
                 // let jpName = $(tds[3]).text().trim();
                 // let jpURL = urlHead + $(tds[3]).find("a").attr("href").trim();
 
-                pokeBasicInfoArray[id] = new PokeBasicInfo(id, zhName, zhURL);
+                pokeBasicInfoArray[id - 1] = new PokeBasicInfo(id, zhName, zhURL);
             })
             return pokeBasicInfoArray;
         });

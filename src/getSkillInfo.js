@@ -1,7 +1,6 @@
-import axios from "axios";
 import cheerio from "cheerio";
 import {getSkillBasicInfo, SkillBasicInfo} from "./details/getSkillBasicInfo.js";
-
+import {getPageByURL} from "./basicConfig.js";
 
 class SkillInfo extends SkillBasicInfo {
     effect = null;        /*招式附加效果*/
@@ -53,7 +52,7 @@ export async function getSkillInfo() {
         }
 
         workArray.push(
-            axios.get(elem.url).then((htmlPage) => {
+            getPageByURL(elem.url).then((htmlPage) => {
                 let $ = cheerio.load(htmlPage.data);
 
                 let skillInfo = new SkillInfo();
