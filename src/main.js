@@ -1,5 +1,5 @@
 require("cejs");
-const {sleep, log, getPageByURL} = require("./basicConfig.js");
+const {sleep, log, getPage} = require("./basicConfig.js");
 
 CeL.run(['application.net.wiki']);
 

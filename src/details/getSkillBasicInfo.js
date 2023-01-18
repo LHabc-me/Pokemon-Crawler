@@ -1,5 +1,5 @@
 const cheerio = require("cheerio");
-const {DataSource, getPageByURL} = require("../basicConfig");
+const {DataSource, getPage} = require("../basicConfig");
 
 class SkillBasicInfo {
     generation = null;  /*第n世代出现*/
@@ -20,7 +20,7 @@ async function getSkillBasicInfo() {
     const url = DataSource.skillMainURL;
     const urlHead = DataSource.URLHead;
 
-    return getPageByURL(url)
+    return getPage(url)
         .then(htmlPage => {
             let $ = cheerio.load(htmlPage.data);
 

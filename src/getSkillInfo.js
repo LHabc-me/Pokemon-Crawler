@@ -1,6 +1,6 @@
 const cheerio = require("cheerio");
 const {getSkillBasicInfo, SkillBasicInfo} = require("./details/getSkillBasicInfo.js");
-const {getPageByURL} = require("./basicConfig.js");
+const {getPage} = require("./basicConfig.js");
 const axios = require("axios");
 
 class SkillInfo extends SkillBasicInfo {
@@ -49,7 +49,7 @@ async function getSkillInfo() {
          处理为：{
             effect: "自我再生恢复使用者{1/2}的ＨＰ。在使用者处于{回复封锁}状态时无法使用。",
             history: "第四世代：ＰＰ：20 → 10 增加效果：在使用者处于{回复封锁}状态时无法使用。"
-        }
+        js 函数sleep一秒}
         */
 
         if (!elem.url) {
@@ -57,7 +57,7 @@ async function getSkillInfo() {
         }
 
         workArray.push(
-            getPageByURL(elem.url).then((htmlPage) => {
+            getPage(elem.url).then((htmlPage) => {
                 let $ = cheerio.load(htmlPage.data);
 
                 let skillInfo = new SkillInfo();

@@ -1,5 +1,5 @@
 const cheerio = require("cheerio");
-const {DataSource, getPageByURL} = require("../basicConfig");
+const {DataSource, getPage} = require("../basicConfig");
 
 class PokeBasicInfo {
     constructor(id, name, url) {
@@ -24,7 +24,7 @@ async function getPokeBasicInfo() {
     const url = DataSource.pokeMainURL;
     const urlHead = DataSource.URLHead;
 
-    return getPageByURL(url)
+    return getPage(url)
         .then(htmlPage => {
             /*
              结构:
