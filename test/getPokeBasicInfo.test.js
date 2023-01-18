@@ -1,6 +1,7 @@
-import fs from "fs";
-import {getPokeBasicInfo} from "../src/details/getPokeBasicInfo.js";
-import {log} from "../src/basicConfig.js";
+const fs = require("fs");
+const {getPokeBasicInfo} = require("../src/details/getPokeBasicInfo.js");
+const {log} = require("../src/basicConfig.js");
+
 
 try {
     (async function () {
@@ -9,5 +10,5 @@ try {
             JSON.stringify(arr, null, 4), {flag: "w+"});
     })();
 } catch (err) {
-    log(err, "error");
+    log(err.message, "error");
 }

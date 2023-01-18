@@ -1,13 +1,18 @@
-import cheerio from "cheerio";
-import {getSkillBasicInfo, SkillBasicInfo} from "./details/getSkillBasicInfo.js";
-import {getPageByURL} from "./basicConfig.js";
+const cheerio = require("cheerio");
+const {getSkillBasicInfo, SkillBasicInfo} = require("./details/getSkillBasicInfo.js");
+const {getPageByURL} = require("./basicConfig.js");
+const axios = require("axios");
 
 class SkillInfo extends SkillBasicInfo {
     effect = null;        /*招式附加效果*/
     history = null;       /*招式变更*/
+    maxPP = null;         /*最大PP*/
+    range = null;         /*招式范围*/
+    priority = null;      /*优先度*/
+
 }
 
-export async function getSkillInfo() {
+async function getSkillInfo() {
     let skillBasicInfo = await getSkillBasicInfo();
     let skillInfoArray = [];
 
@@ -44,7 +49,7 @@ export async function getSkillInfo() {
          处理为：{
             effect: "自我再生恢复使用者{1/2}的ＨＰ。在使用者处于{回复封锁}状态时无法使用。",
             history: "第四世代：ＰＰ：20 → 10 增加效果：在使用者处于{回复封锁}状态时无法使用。"
-        }//保留富文本
+        }
         */
 
         if (!elem.url) {
@@ -85,3 +90,5 @@ export async function getSkillInfo() {
 
     return skillInfoArray;
 }
+
+module.exports = {SkillInfo, getSkillInfo};

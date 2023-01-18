@@ -1,11 +1,11 @@
-import {DataSource, getPageByURL} from "../basicConfig.js";
-import cheerio from "cheerio";
+const cheerio = require("cheerio");
+const {DataSource, getPageByURL} = require("../basicConfig");
 
-export class SkillBasicInfo {
+class SkillBasicInfo {
     generation = null;  /*第n世代出现*/
     id = null;          /*总技能编号*/
     name = null;        /*中文名称*/
-    type = [];          /*属性*/
+    type = null;        /*属性*/
     category = null;    /*类别*/
     power = null;       /*威力*/
     accuracy = null;    /*命中率*/
@@ -14,7 +14,7 @@ export class SkillBasicInfo {
     url = null;         /*技能详情页链接*/
 }
 
-export async function getSkillBasicInfo() {
+async function getSkillBasicInfo() {
     const SkillBasicInfoArray = [];
 
     const url = DataSource.skillMainURL;
@@ -80,7 +80,7 @@ export async function getSkillBasicInfo() {
                         skillBasicInfo.generation = td.parent().parent().parent().prev().find("span").eq(1).text().trim();
                         skillBasicInfo.id = parseInt(td.eq(0).text());
                         skillBasicInfo.name = td.eq(1).text().trim();
-                        skillBasicInfo.type = td.eq(4).text().trim().split("、");
+                        skillBasicInfo.type = td.eq(4).text().trim();
                         skillBasicInfo.category = td.eq(5).text().trim();
                         skillBasicInfo.power = parseInt(td.eq(6).text());
                         skillBasicInfo.accuracy = parseInt(td.eq(7).text());
@@ -95,3 +95,5 @@ export async function getSkillBasicInfo() {
             return SkillBasicInfoArray;
         });
 }
+
+module.exports = {SkillBasicInfo, getSkillBasicInfo};

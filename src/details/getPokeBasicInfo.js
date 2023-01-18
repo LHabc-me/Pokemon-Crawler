@@ -1,8 +1,7 @@
-import cheerio from "cheerio";
-import {DataSource, getPageByURL} from "../basicConfig.js";
+const cheerio = require("cheerio");
+const {DataSource, getPageByURL} = require("../basicConfig");
 
-
-export class PokeBasicInfo {
+class PokeBasicInfo {
     constructor(id, name, url) {
         this.id = id;
         this.name = name;
@@ -19,7 +18,7 @@ export class PokeBasicInfo {
 * @returns: [PokeURL1, PokeURL2, ...]
 * @example: getPokeBasicInfo().then(pokeURLs => console.log(pokeURLs[0].getInfo()));
  */
-export async function getPokeBasicInfo() {
+async function getPokeBasicInfo() {
     const pokeBasicInfoArray = [];
 
     const url = DataSource.pokeMainURL;
@@ -61,3 +60,6 @@ export async function getPokeBasicInfo() {
             return pokeBasicInfoArray;
         });
 }
+
+
+module.exports = {PokeBasicInfo, getPokeBasicInfo};
