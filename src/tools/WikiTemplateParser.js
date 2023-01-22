@@ -1,3 +1,5 @@
+"use strict";
+
 const assert = require("assert");
 let s = `{{招式信息框
 |n=1
