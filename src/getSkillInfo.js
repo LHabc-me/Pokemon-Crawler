@@ -1,6 +1,6 @@
 const {getSkillBasicInfo, SkillBasicInfo} = require("./details/getSkillBasicInfo.js");
 const {getMediaWikiSourceCode} = require("./basicConfig");
-require("cejs");
+const WikiTemplateParser = require("./tools/WikiTemplateParser.js");
 
 class SkillInfo extends SkillBasicInfo {
     effect = null;        /*招式附加效果*/
@@ -17,15 +17,13 @@ async function getSkillInfo() {
 
     let workArray = [];
 
-    CeL.run(['application.net.wiki']);
-
     for (let elem of skillBasicInfo) {
         if (!elem.url) {
             continue;
         }
 
         workArray.push(getMediaWikiSourceCode(elem.url)
-            .then(code => CeL.wiki.parse(code))
+            .then(code => WikiTemplateParser.parse(code))
             .then(parsed => {
                 skillInfoArray.push({
                     name: elem.name,

@@ -21,7 +21,7 @@ class FS {
     static readlink = util.promisify(fs.readlink);
     static realpath = util.promisify(fs.realpath);
     static chmod = util.promisify(fs.chmod);
-    static lchmod = util.promisify(fs.lchmod);
+    // static lchmod = util.promisify(fs.lchmod);
     static lchown = util.promisify(fs.lchown);
     static chown = util.promisify(fs.chown);
     static utimes = util.promisify(fs.utimes);
@@ -38,7 +38,7 @@ class FS {
     static readSync = fs.readFileSync;
     static writeSync = fs.writeFileSync;
     static readdirSync = fs.readdirSync;
-    static statSync = fs.statSync;
+    //static statSync = fs.statSync;
     static mkdirSync = fs.mkdirSync;
     static rmdirSync = fs.rmdirSync;
     static unlinkSync = fs.unlinkSync;
@@ -46,7 +46,7 @@ class FS {
     static copyFileSync = fs.copyFileSync;
     static existsSync = fs.existsSync;
     static accessSync = fs.accessSync;
-    static lstatSync = fs.lstatSync;
+    //static lstatSync = fs.lstatSync;
     static symlinkSync = fs.symlinkSync;
     static readlinkSync = fs.readlinkSync;
     static realpathSync = fs.realpathSync;

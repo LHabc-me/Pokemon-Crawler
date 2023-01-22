@@ -1,7 +1,7 @@
 "use strict";
 
 const Crawler = require('crawler');
-const fs = require('FS');
+const fs = require('./FS.js');
 const util = require('util');
 const path = require('path');
 

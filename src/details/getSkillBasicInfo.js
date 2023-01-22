@@ -22,7 +22,7 @@ async function getSkillBasicInfo() {
 
     return getPage(url)
         .then(htmlPage => {
-            let $ = cheerio.load(htmlPage.data);
+            let $ = cheerio.load(htmlPage);
 
             /*
                 结构：

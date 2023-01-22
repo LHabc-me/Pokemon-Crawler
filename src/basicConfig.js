@@ -1,5 +1,7 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
+const PageGetter = require("./tools/PageGetter.js");
+const pandoc = require('node-pandoc');
 
 class DataSource {
     static pokeMainURL = new URL("https://wiki.52poke.com/wiki/宝可梦列表（按全国图鉴编号）/简单版").toString();
@@ -23,7 +25,10 @@ function sleep(n) {
 
 async function getPage(url) {
     console.log(url);
-    return axios.get(url);
+    if (PageGetter.cache_root !== '../cahce') {
+        PageGetter.cache_root = '../cahce';
+    }
+    return PageGetter.get(url).then(page => page.body);
 }
 
 //获取界面的MediaWiki代码
@@ -46,7 +51,7 @@ function getMediaWikiSourceCode(url) {
 
     return getPage(sourceCodeURL)
         .then((htmlPage) => {
-            let $ = cheerio.load(htmlPage.data);
+            let $ = cheerio.load(htmlPage);
             return $("textarea").text().trim();
         });
 }
