@@ -86,7 +86,9 @@ async function getSkillBasicInfo() {
                         skillBasicInfo.accuracy = parseInt(td.eq(7).text());
                         skillBasicInfo.pp = parseInt(td.eq(8).text());
                         skillBasicInfo.description = td.eq(9).text().trim();
-                        skillBasicInfo.url = urlHead + td.eq(1).find("a").attr("href").trim();
+
+                        //寻找最后一个a标签，获取href属性（因为z招式有z结晶的标签，不能找第一个）
+                        skillBasicInfo.url = urlHead + td.eq(1).find("a").last().attr("href").trim();
 
                         SkillBasicInfoArray.push(skillBasicInfo);
                     }

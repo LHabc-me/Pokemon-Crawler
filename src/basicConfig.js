@@ -25,8 +25,8 @@ function sleep(n) {
 
 async function getPage(url) {
     console.log(url);
-    if (PageGetter.cache_root !== '../cahce') {
-        PageGetter.cache_root = '../cahce';
+    if (PageGetter.cache_root !== '../cache') {
+        PageGetter.cache_root = '../cache';
     }
     return PageGetter.get(url).then(page => page.body);
 }
@@ -41,15 +41,13 @@ function getMediaWikiSourceCode(url) {
       处理为：URLHead + "/index.php?title=%E8%BF%9E%E7%BB%AD%E6%8B%B3%EF%BC%88%E6%8B%9B%E5%BC%8F%EF%BC%89&amp;action=edit"
       然后从中获取MediaWiki代码
     */
-    // getPage(url)
-    //         .then((htmlPage) => {
-    //             let $ = cheerio.load(htmlPage.data);
-    //             return DataSource.URLHead + $("span:contains('查看源代码')").parent().attr("href").trim();
-    //         })
-    //         .then((sourceCodeURL) =>
-    let sourceCodeURL = url.replace("/wiki/", "/index.php?title=") + "&action=edit";
-
-    return getPage(sourceCodeURL)
+    //let sourceCodeURL = url.replace("/wiki/", "/index.php?title=") + "&action=edit";
+    return getPage(url)
+        .then((htmlPage) => {
+            let $ = cheerio.load(htmlPage);
+            return DataSource.URLHead + $("span:contains('查看源代码')").parent().attr("href").trim();
+        })
+        .then((sourceCodeURL) => getPage(sourceCodeURL))
         .then((htmlPage) => {
             let $ = cheerio.load(htmlPage);
             return $("textarea").text().trim();

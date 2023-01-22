@@ -2,7 +2,6 @@
 
 const Crawler = require('crawler');
 const fs = require('./FS.js');
-const util = require('util');
 const path = require('path');
 
 //基于Promise和缓存简化Crawler
@@ -22,9 +21,9 @@ class PageGetter {
     }
 
     //获取url内容
-    static get(url, via_net = true, cache = true) {
-        if (via_net || !fs.existsSync(this._getFileName(url))) {
-            return this._getViaNet(url, cache);
+    static get(url, tryUseCache = false, makeCache = true) {
+        if (tryUseCache || !fs.existsSync(this._getFileName(url))) {
+            return this._getViaNet(url, makeCache);
         } else {
             return this._getViaCache(url);
         }
@@ -53,9 +52,8 @@ class PageGetter {
 
     //从缓存获取
     static _getViaCache(url) {
-        console.log(this._getFileName(url))
-        return this._readFile(this._getFileName(url), {encoding: 'utf8'})
-            .then(content => JSON.parse(content));
+        return fs.readFile(this._getFileName(url))
+            .then(content => JSON.parse(content.toString()));
 
     }
 
@@ -72,7 +70,7 @@ class PageGetter {
         }
 
         //写入文件
-        return this._writeFile(file_name, JSON.stringify(content, null, 4), {encoding: 'utf8', flag: 'w+'});
+        return fs.writeFile(file_name, JSON.stringify(content, null, 4));
     }
 
     //获取缓存文件名(相对路径)
@@ -92,9 +90,6 @@ class PageGetter {
 
         return file_name;
     }
-
-    static _readFile = util.promisify(fs.readFile);
-    static _writeFile = util.promisify(fs.writeFile);
 }
 
 module.exports = PageGetter;

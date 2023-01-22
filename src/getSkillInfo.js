@@ -23,7 +23,10 @@ async function getSkillInfo() {
         }
 
         workArray.push(getMediaWikiSourceCode(elem.url)
-            .then(code => WikiTemplateParser.parse(code))
+            .then(code => WikiTemplateParser.getTemplate(code, '招式信息框'))
+            .then(code => {
+                return WikiTemplateParser.parse(code)
+            })
             .then(parsed => {
                 skillInfoArray.push({
                     name: elem.name,
