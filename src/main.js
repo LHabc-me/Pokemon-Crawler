@@ -1,6 +1,9 @@
-require("cejs");
-const {sleep, log, getPage} = require("./basicConfig.js");
+const fs = require("fs");
+const pandoc = require('node-pandoc');
 
-CeL.run(['application.net.wiki']);
+let code = fs.readFileSync("../temp/temp.txt", "utf8");
 
-// console.log(CeL.wiki.parse('[[File:Example.jpg|thumb|left|200px|Example]]'));
+let args = "-f mediawiki -t markdown";
+pandoc(code, args, (err, result) => {
+    fs.writeFileSync("../temp/temp.md", result, {flag: "w+"});
+})
