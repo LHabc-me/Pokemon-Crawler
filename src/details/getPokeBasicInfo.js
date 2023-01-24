@@ -41,7 +41,7 @@ async function getPokeBasicInfo() {
               // ポリゴン https://wiki.52poke.com/wiki/%E3%83%9D%E3%83%AA%E3%82%B4%E3%83%B3
               // Porygon https://wiki.52poke.com/wiki/Porygon"
             */
-            let $ = cheerio.load(htmlPage.data);
+            let $ = cheerio.load(htmlPage);
             let td = $("tr:has(td:contains('#'))");
 
             td.map((index, elem) => {
@@ -50,11 +50,6 @@ async function getPokeBasicInfo() {
 
                 let zhName = $(tds[1]).text().trim();
                 let zhURL = urlHead + $(tds[1]).find("a").attr("href").trim();
-                // let enName = $(tds[2]).text().trim();
-                // let enURL = urlHead + $(tds[2]).find("a").attr("href").trim();
-                // let jpName = $(tds[3]).text().trim();
-                // let jpURL = urlHead + $(tds[3]).find("a").attr("href").trim();
-
                 pokeBasicInfoArray[id - 1] = new PokeBasicInfo(id, zhName, zhURL);
             })
             return pokeBasicInfoArray;

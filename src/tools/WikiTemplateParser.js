@@ -76,7 +76,7 @@ class WikiTemplateParser {
                 }}
         */
         let code = mediaWikiSourcecode;
-        let start = code.indexOf(`{{${templateName}|`);
+        let start = code.indexOf(`{{${templateName}`);
         if (start === -1) {
             return "";
         }

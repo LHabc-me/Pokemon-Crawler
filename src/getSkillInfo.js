@@ -1,15 +1,7 @@
-const {getSkillBasicInfo, SkillBasicInfo} = require("./details/getSkillBasicInfo.js");
+const {getSkillBasicInfo} = require("./details/getSkillBasicInfo.js");
 const {getMediaWikiSourceCode} = require("./basicConfig");
 const WikiTemplateParser = require("./tools/WikiTemplateParser.js");
 
-class SkillInfo extends SkillBasicInfo {
-    effect = null;        /*招式附加效果*/
-    history = null;       /*招式变更*/
-    maxPP = null;         /*最大PP*/
-    range = null;         /*招式范围*/
-    priority = null;      /*优先度*/
-
-}
 
 async function getSkillInfo() {
     let skillBasicInfo = await getSkillBasicInfo();
@@ -23,10 +15,10 @@ async function getSkillInfo() {
         }
 
         workArray.push(getMediaWikiSourceCode(elem.url)
-            .then(code => WikiTemplateParser.getTemplate(code, '招式信息框'))
-            .then(code => {
-                return WikiTemplateParser.parse(code)
-            })
+            //.then(code => WikiTemplateParser.getTemplate(code, '招式信息框'))
+            // .then(code => {
+            //     return WikiTemplateParser.parse(code)
+            // })
             .then(parsed => {
                 skillInfoArray.push({
                     name: elem.name,
@@ -54,4 +46,4 @@ async function getSkillInfo() {
     return skillInfoArray;
 }
 
-module.exports = {SkillInfo, getSkillInfo};
+module.exports = {getSkillInfo};
