@@ -14,7 +14,7 @@ class SkillBasicInfo {
     url = null;         /*技能详情页链接*/
 }
 
-async function getSkillBasicInfo() {
+function getSkillBasicInfo() {
     const SkillBasicInfoArray = [];
 
     const url = DataSource.skillMainURL;

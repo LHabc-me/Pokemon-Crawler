@@ -18,7 +18,7 @@ class PokeBasicInfo {
 * @returns: [PokeURL1, PokeURL2, ...]
 * @example: getPokeBasicInfo().then(pokeURLs => console.log(pokeURLs[0].getInfo()));
  */
-async function getPokeBasicInfo() {
+function getPokeBasicInfo() {
     const pokeBasicInfoArray = [];
 
     const url = DataSource.pokeMainURL;
