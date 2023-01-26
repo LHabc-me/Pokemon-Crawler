@@ -22,7 +22,7 @@ class PageGetter {
 
     //获取url内容
     static get(url, tryUseCache = false, makeCache = true) {
-        if (tryUseCache || !fs.existsSync(this._getFileName(url))) {
+        if (!tryUseCache || !fs.existsSync(this._getFileName(url))) {
             return this._getViaNet(url, makeCache);
         } else {
             return this._getViaCache(url);

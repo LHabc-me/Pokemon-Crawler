@@ -1,5 +1,3 @@
-"use strict";
-
 /*基于Promise封装fs*/
 const fs = require('fs');
 const util = require('util');
