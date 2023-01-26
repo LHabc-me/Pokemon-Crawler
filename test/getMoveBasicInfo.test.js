@@ -1,5 +1,5 @@
 const fs = require("fs");
-const {getSkillBasicInfo} = require("../src/details/getSkillBasicInfo.js");
+const {getSkillBasicInfo} = require("../src/details/getMoveBasicInfo.js");
 
 async function test() {
     let arr = await getSkillBasicInfo();

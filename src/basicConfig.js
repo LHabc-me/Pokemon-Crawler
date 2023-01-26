@@ -29,7 +29,7 @@ async function getPage(url) {
     if (PageGetter.cache_root !== '../cache') {
         PageGetter.cache_root = '../cache';
     }
-    return PageGetter.get(url).then(page => page.body);
+    return PageGetter.get(url, false, true).then(page => page.body);
 }
 
 //获取界面的MediaWiki代码

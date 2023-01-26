@@ -1,10 +1,10 @@
-const {getSkillBasicInfo} = require("./details/getSkillBasicInfo.js");
+const {getMoveBasicInfo} = require("./details/getMoveBasicInfo.js");
 const {getMediaWikiSourceCode} = require("./basicConfig");
 const WikiTemplateParser = require("./tools/WikiTemplateParser.js");
 
 
-async function getSkillInfo() {
-    let skillBasicInfo = await getSkillBasicInfo();
+async function getMoveInfo() {
+    let skillBasicInfo = await getMoveBasicInfo();
     let skillInfoArray = [];
 
     let workArray = [];
@@ -46,4 +46,4 @@ async function getSkillInfo() {
     return skillInfoArray;
 }
 
-module.exports = {getSkillInfo};
+module.exports = {getMoveInfo};

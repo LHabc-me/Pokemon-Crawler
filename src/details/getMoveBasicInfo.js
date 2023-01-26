@@ -14,7 +14,7 @@ class SkillBasicInfo {
     url = null;         /*技能详情页链接*/
 }
 
-function getSkillBasicInfo() {
+function getMoveBasicInfo() {
     const SkillBasicInfoArray = [];
 
     const url = DataSource.skillMainURL;
@@ -98,4 +98,4 @@ function getSkillBasicInfo() {
         });
 }
 
-module.exports = {SkillBasicInfo, getSkillBasicInfo};
+module.exports = {SkillBasicInfo, getMoveBasicInfo};
