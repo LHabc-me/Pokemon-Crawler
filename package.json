@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "axios": "^1.2.2",
-    "cheerio": "^1.0.0-rc.12",
-    "crawler": "^1.4.0",
-    "node-pandoc": "^0.3.0"
-  }
-}
